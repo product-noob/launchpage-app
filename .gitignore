@@ -1,19 +1,58 @@
 node_modules
 .claude/
+.cursor/
+.codex/
+
+# Build output
 dist
 dist-electron
 release
+launchpad-website/dist
+
+# Logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS / editor cruft
 .DS_Store
+Thumbs.db
+.idea/
+.vscode/
 
 # Runtime artifacts (contain local paths, generated at runtime)
+apps.json
 apps.json.bak
+apps.json.tmp-*
 pids.json
+
+# TypeScript / tooling cache
+*.tsbuildinfo
+.eslintcache
+.turbo/
+.vite/
 
 # Environment
 .env
 .env.*
 
-# Build artifacts
+# Build artifacts / installers
 *.dmg
+*.exe
 *.zip
+*.tar
+*.tgz
+
+# Personal notes / scratch files
+*improvement*.md
+Arch_improvement.md
+Design_improvement.md
+overall_improvement.md
+
+# Generated assets
+launchpad-website/public/og-image.html
+
+# Junk / scratch files
+resources/Untitled
