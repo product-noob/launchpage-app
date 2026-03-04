@@ -1,4 +1,4 @@
-# Launchpad — Windows installer
+# Launchpad -Windows installer
 # Usage: irm https://raw.githubusercontent.com/product-noob/launchpage-app/main/install.ps1 | iex
 #Requires -Version 5.1
 Set-StrictMode -Version Latest

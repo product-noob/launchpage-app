@@ -9,9 +9,9 @@ interface ThemeToggleProps {
 }
 
 const modeConfig: Record<ThemeMode, { icon: IconName; title: string }> = {
-  dark: { icon: 'moon', title: 'Theme: Dark — click for Light' },
-  light: { icon: 'sun', title: 'Theme: Light — click for System' },
-  system: { icon: 'monitor', title: 'Theme: System — click for Dark' },
+  dark: { icon: 'moon', title: 'Theme: Dark -click for Light' },
+  light: { icon: 'sun', title: 'Theme: Light -click for System' },
+  system: { icon: 'monitor', title: 'Theme: System -click for Dark' },
 }
 
 export function ThemeToggle({ mode, onCycle, noDrag }: ThemeToggleProps) {

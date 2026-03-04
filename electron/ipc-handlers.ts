@@ -4,7 +4,7 @@ import type { AppEntry } from '../shared/types.ts'
 import { setupAppHandlers } from './ipc-app-handlers.ts'
 import { setupSystemHandlers } from './ipc-system-handlers.ts'
 
-// Shared IPC response helpers — exported for sub-modules
+// Shared IPC response helpers -exported for sub-modules
 export function ipcResult(data?: unknown) {
   return { ok: true, data }
 }

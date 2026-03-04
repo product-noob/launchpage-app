@@ -1,16 +1,7 @@
 import { Terminal } from './Terminal';
 import { motion } from 'motion/react';
 import { Download, Github } from 'lucide-react';
-
-const DOWNLOAD_MAC = 'https://github.com/product-noob/launchpage-app/releases/download/v1.0.0/Launchpad-1.0.0-arm64.dmg';
-const DOWNLOAD_WIN = 'https://github.com/product-noob/launchpage-app/releases/download/v1.0.0/Launchpad.Setup.1.0.0.exe';
-const GITHUB_URL = 'https://github.com/product-noob/launchpage-app';
-
-function getOSInfo(): { label: string; url: string } {
-  const ua = navigator.userAgent;
-  if (ua.includes('Win')) return { label: 'Download for Windows', url: DOWNLOAD_WIN };
-  return { label: 'Download for macOS', url: DOWNLOAD_MAC };
-}
+import { GITHUB_URL, getOSInfo } from '../constants';
 
 export function Hero() {
   const os = getOSInfo();
@@ -27,7 +18,7 @@ export function Hero() {
           transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
         >
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter mb-6 text-transparent bg-clip-text bg-gradient-to-b from-black to-black/60 dark:from-white dark:to-white/60 leading-[1.1]">
-            Your local apps,<br className="hidden sm:block" /> always one click away.
+            Every app you build.<br className="hidden sm:block" /> One click to run.
           </h1>
         </motion.div>
 
@@ -37,7 +28,7 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
           className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto font-medium tracking-tight"
         >
-          A menu bar home for every dev server you build. Start, stop, and monitor without ever touching a terminal.
+          You vibe-coded 12 apps last month. Launchpad remembers how to run all of them -so you don't have to.
         </motion.p>
 
         <motion.div

@@ -41,7 +41,7 @@ function ConsoleApp() {
       <div className="h-screen flex bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 relative">
         {/* Sidebar */}
         <div className="w-52 flex-shrink-0 border-r border-neutral-200 dark:border-neutral-800 flex flex-col bg-neutral-50 dark:bg-neutral-950">
-          {/* Title bar area — taller on macOS to clear traffic lights */}
+          {/* Title bar area -taller on macOS to clear traffic lights */}
           <div
             className={`${window.electronAPI.platform === 'darwin' ? 'h-12' : 'h-9'} flex items-end pb-1 px-4`}
             style={{ WebkitAppRegion: 'drag' } as React.CSSProperties}

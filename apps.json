@@ -25,6 +25,16 @@
       "port": 4321,
       "autoStart": false,
       "tags": []
+    },
+    {
+      "id": "launchpage-website",
+      "name": "Launchpad website",
+      "type": "other",
+      "path": "C:\\Users\\princ\\Downloads\\app-launcher-essentials\\app-launcher\\launchpad-website",
+      "command": "npm run dev",
+      "port": 3000,
+      "autoStart": false,
+      "tags": []
     }
   ]
 }

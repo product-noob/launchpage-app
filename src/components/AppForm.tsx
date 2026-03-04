@@ -238,7 +238,7 @@ export function AppForm(props: AppFormProps) {
                 rows={2}
                 className={fieldClass(shouldShowError('command') && errors.command, 'font-mono text-[11px] resize-none')}
               />
-              <span className="text-[9px] text-neutral-500 dark:text-neutral-600 mt-0.5 block">One command per line — runs sequentially</span>
+              <span className="text-[9px] text-neutral-500 dark:text-neutral-600 mt-0.5 block">One command per line -runs sequentially</span>
             </Field>
 
             <div className="flex gap-2">

@@ -19,7 +19,7 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      // Disable React Compiler rules — not using React Compiler
+      // Disable React Compiler rules -not using React Compiler
       'react-hooks/set-state-in-effect': 'off',
       'react-hooks/preserve-manual-memoization': 'off',
       'react-hooks/static-components': 'off',

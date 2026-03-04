@@ -7,8 +7,8 @@ import { ThemeProvider } from './components/ThemeProvider';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Showcase } from './components/Showcase';
+import { PersonaSection } from './components/PersonaSection';
 import { HowItWorks } from './components/HowItWorks';
-import { HotkeyFocus } from './components/HotkeyFocus';
 import { BentoGrid } from './components/BentoGrid';
 import { Marquee } from './components/Marquee';
 import { CTASection } from './components/CTASection';
@@ -26,8 +26,8 @@ export default function App() {
           <main className="flex-grow flex flex-col items-center w-full">
             <Hero />
             <Showcase />
+            <PersonaSection />
             <HowItWorks />
-            <HotkeyFocus />
             <BentoGrid />
             <Marquee />
             <CTASection />

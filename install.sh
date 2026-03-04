@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Launchpad — macOS installer
+# Launchpad -macOS installer
 # Usage: curl -fsSL https://raw.githubusercontent.com/product-noob/launchpage-app/main/install.sh | bash
 set -e
 

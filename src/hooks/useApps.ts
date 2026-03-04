@@ -91,7 +91,7 @@ export function useApps() {
     } else {
       addToast('App started', 'success')
     }
-    // F1: No manual getStatuses() — the broadcast handles it
+    // F1: No manual getStatuses() -the broadcast handles it
   }, [addToast, setPending])
 
   const stopApp = useCallback(async (id: string) => {

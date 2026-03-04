@@ -4,18 +4,18 @@ import { Command, MousePointerClick, Zap } from 'lucide-react';
 const steps = [
   {
     icon: Command,
-    title: "Summon Instantly",
-    description: "Hit Cmd+Shift+L from anywhere. No need to open a terminal."
+    title: "Open Launchpad",
+    description: "One keyboard shortcut from anywhere. Always a click away in your menu bar."
   },
   {
     icon: MousePointerClick,
-    title: "Select Project",
-    description: "Fuzzy search your apps or click to start. Launchpad knows your stack."
+    title: "Pick your app",
+    description: "Search or scroll to find what you need. Launchpad remembers every project."
   },
   {
     icon: Zap,
-    title: "Server Starts",
-    description: "Ports are auto-assigned, environments activated, and logs streamed."
+    title: "It's running",
+    description: "Ports, environments, and logs are handled automatically. Just build."
   }
 ];
 
@@ -24,10 +24,10 @@ export function HowItWorks() {
     <section className="py-24 px-6 w-full max-w-5xl mx-auto">
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-gray-900 dark:text-white">
-          Launchpad is made for you.
+          Up and running in seconds.
         </h2>
         <p className="text-gray-600 dark:text-gray-400 text-lg">
-          Three steps to local development bliss.
+          Three steps. Zero terminal commands.
         </p>
       </div>
       

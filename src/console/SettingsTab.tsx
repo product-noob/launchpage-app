@@ -81,7 +81,7 @@ export function SettingsTab() {
       {/* About */}
       <Section title="About">
         <div className="text-sm text-neutral-500 dark:text-neutral-400 space-y-1">
-          <p><span className="font-medium text-neutral-700 dark:text-neutral-300">Launchpad</span> — Local dev app launcher</p>
+          <p><span className="font-medium text-neutral-700 dark:text-neutral-300">Launchpad</span> -Local dev app launcher</p>
           <p>Electron {window.electronAPI.platform === 'darwin' ? 'macOS' : window.electronAPI.platform === 'win32' ? 'Windows' : window.electronAPI.platform}</p>
         </div>
       </Section>

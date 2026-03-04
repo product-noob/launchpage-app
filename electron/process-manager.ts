@@ -95,7 +95,7 @@ export async function startApp(id: string, appPath: string, command: string, por
     return { ok: false, error: errorMsg }
   }
 
-  // Resolve port — if configured port is busy, auto-find a free one
+  // Resolve port -if configured port is busy, auto-find a free one
   let resolvedPort = port
   if (port) {
     const inUse = await checkPort(port)
@@ -144,7 +144,7 @@ export async function startApp(id: string, appPath: string, command: string, por
     appendLog(id, `[${timestamp()}] Activated venv: ${path.dirname(venvBin)}`)
   }
   if (resolvedPort && resolvedPort !== port) {
-    appendLog(id, `[${timestamp()}] Port ${port} in use — reassigned to ${resolvedPort}`)
+    appendLog(id, `[${timestamp()}] Port ${port} in use -reassigned to ${resolvedPort}`)
   }
   appendLog(id, '')
 

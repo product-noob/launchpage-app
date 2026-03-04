@@ -7,11 +7,11 @@ const LSOF_TIMEOUT_MS = 2000
 
 /** Check if a port is already in use */
 export async function checkPort(port: number): Promise<boolean> {
-  // Primary: lsof is the most reliable on macOS — detects any binding on the port
+  // Primary: lsof is the most reliable on macOS -detects any binding on the port
   try {
     execSync(`lsof -i :${port} -sTCP:LISTEN -t`, { encoding: 'utf-8', timeout: LSOF_TIMEOUT_MS })
     return true // lsof found a listener
-  } catch { /* no listener found or lsof failed — fall through */ }
+  } catch { /* no listener found or lsof failed -fall through */ }
 
   // Fallback: try binding on both specific and wildcard addresses
   for (const host of ['127.0.0.1', '0.0.0.0'] as const) {

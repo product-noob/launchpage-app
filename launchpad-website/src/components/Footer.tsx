@@ -1,4 +1,5 @@
 import { Rocket, Github, Twitter } from 'lucide-react';
+import { GITHUB_URL } from '../constants';
 
 export function Footer() {
   return (
@@ -13,7 +14,7 @@ export function Footer() {
         {/* Right: links */}
         <div className="flex items-center gap-5 text-gray-500 dark:text-gray-400">
           <a
-            href="https://github.com/product-noob/launchpage-app"
+            href={GITHUB_URL}
             target="_blank"
             rel="noreferrer"
             className="hover:text-black dark:hover:text-white transition-colors"

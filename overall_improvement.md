@@ -1,4 +1,4 @@
-# Launchpad — Consolidated Improvement Plan
+# Launchpad -Consolidated Improvement Plan
 
 > Produced by cross-referencing `Arch_improvement.md` and `Design_improvement.md` against the actual codebase. Every claim has been validated; false positives are flagged. Effort is calibrated for a solo developer working in occasional sessions.
 >
@@ -10,7 +10,7 @@
 
 0. [Open-Source Readiness (NEW)](#0-open-source-readiness)
 1. [Audit Accuracy Report](#1-audit-accuracy-report)
-2. [Confirmed Bugs — Fix Immediately](#2-confirmed-bugs)
+2. [Confirmed Bugs -Fix Immediately](#2-confirmed-bugs)
 3. [Prioritized Backlog](#3-prioritized-backlog)
 4. [Items NOT Worth Doing (Yet)](#4-items-not-worth-doing)
 5. [Effort Summary](#5-effort-summary)
@@ -34,7 +34,7 @@ Going public changes the priority of several items and adds new requirements. Th
 
 ### 0.2 Missing: LICENSE File
 
-No LICENSE file exists at the project root. Without one, the code is "all rights reserved" by default — nobody can legally use it.
+No LICENSE file exists at the project root. Without one, the code is "all rights reserved" by default -nobody can legally use it.
 
 **Fix:** Add `LICENSE` with MIT (matching CodexBar's approach). Permissive, standard for dev tools.
 
@@ -72,7 +72,7 @@ No `.github/` directory exists. For CodexBar-style distribution, you need:
 ### 0.5 Update `package.json` for Public Distribution
 
 Current issues:
-- `"private": true` — prevents `npm publish` (fine if not publishing to npm, but signal to remove)
+- `"private": true` -prevents `npm publish` (fine if not publishing to npm, but signal to remove)
 - No `license`, `repository`, `author`, `homepage`, or `keywords` fields
 - No electron-builder publish configuration
 
@@ -81,7 +81,7 @@ Current issues:
 {
   "name": "launchpad",
   "version": "1.0.0",
-  "private": true,  // keep — not distributing via npm
+  "private": true,  // keep -not distributing via npm
   "license": "MIT",
   "author": "Prince Jain",
   "repository": "github:princejain/launchpad",
@@ -180,22 +180,22 @@ Both audits were largely correct. A few claims were wrong or overstated. This se
 
 | Claim | Source | Verified |
 |-------|--------|----------|
-| `main.ts` is a monolith (751 lines, 25+ IPC handlers) | Arch | `electron/main.ts` — 751 lines, 25 `ipcMain.handle` registrations |
-| `AppEntry`/`AppComponent` redefined in main process | Arch | `main.ts:114-133` — weaker `string` types vs renderer's `AppType` union |
-| `getAppStatus` duplicated 3 times | Both | `useApps.ts:185`, `DashboardTab.tsx:7`, `AppsTab.tsx:6` — identical logic |
-| `formatUptime` duplicated 2 times | Both | `AppCard.tsx:6`, `AppsTab.tsx:17` — identical logic |
-| `getLineClass` duplicated 2 times | Both | `LogViewer.tsx:82`, `LogsTab.tsx:64` — identical logic |
+| `main.ts` is a monolith (751 lines, 25+ IPC handlers) | Arch | `electron/main.ts` -751 lines, 25 `ipcMain.handle` registrations |
+| `AppEntry`/`AppComponent` redefined in main process | Arch | `main.ts:114-133` -weaker `string` types vs renderer's `AppType` union |
+| `getAppStatus` duplicated 3 times | Both | `useApps.ts:185`, `DashboardTab.tsx:7`, `AppsTab.tsx:6` -identical logic |
+| `formatUptime` duplicated 2 times | Both | `AppCard.tsx:6`, `AppsTab.tsx:17` -identical logic |
+| `getLineClass` duplicated 2 times | Both | `LogViewer.tsx:82`, `LogsTab.tsx:64` -identical logic |
 | Outside-click handler duplicated 3 times | Both | `AppCard.tsx:51`, `GroupedAppCard.tsx:43`, `AppsTab.tsx:205` |
 | Menu component written 3 times | Both | `AppCard.tsx` (MenuItem+MenuIcon), `GroupedAppCard.tsx` (OverflowItem), `AppsTab.tsx` (RowMenu+MenuBtn) |
 | AddAppForm/EditAppForm severe duplication | Both | 328 vs 302 LOC, ~75-80% identical |
-| No `src/utils/` directory | Arch | Confirmed — does not exist |
+| No `src/utils/` directory | Arch | Confirmed -does not exist |
 | No ESLint config file | Arch | No `eslint.config.mjs`, `.eslintrc.*`, or any variant found |
-| `app:status` and `app:logs` lack try/catch | Arch | `main.ts:387` and `main.ts:443` — raw returns with no error wrapping |
-| `app:startComponent` missing `comp.type` | Arch | `main.ts:481` — `startApp(comp.id, comp.path, comp.command, comp.port)` omits type |
+| `app:status` and `app:logs` lack try/catch | Arch | `main.ts:387` and `main.ts:443` -raw returns with no error wrapping |
+| `app:startComponent` missing `comp.type` | Arch | `main.ts:481` -`startApp(comp.id, comp.path, comp.command, comp.port)` omits type |
 | Console tabs duplicate data fetching | Both | DashboardTab, AppsTab, LogsTab all independently fetch apps + subscribe to statuses |
-| DashboardTab uses static `app.port` | Arch | `DashboardTab.tsx:127` — shows `app.port` not runtime-resolved port |
-| AppsTab uses static `app.port` | Arch | `AppsTab.tsx:150-154` — shows/opens `app.port` not runtime-resolved port |
-| `typeRegistry.ts` is good centralization | Both | Confirmed — single source of truth for app-type labels and colors |
+| DashboardTab uses static `app.port` | Arch | `DashboardTab.tsx:127` -shows `app.port` not runtime-resolved port |
+| AppsTab uses static `app.port` | Arch | `AppsTab.tsx:150-154` -shows/opens `app.port` not runtime-resolved port |
+| `typeRegistry.ts` is good centralization | Both | Confirmed -single source of truth for app-type labels and colors |
 
 ### False Positives
 
@@ -210,7 +210,7 @@ Both audits were largely correct. A few claims were wrong or overstated. This se
 | Status border classes in "6 files" | Arch §3.3 | **Actually 2 files**: `AppCard.tsx:64-66` and `GroupedAppCard.tsx:54-55`. The other files (AppList, DashboardTab, ConfigTab, ConfirmDialog) do not use these exact border classes. |
 | "~40 inline SVG blocks" | Design §1.4 | **Actually ~49 inline SVGs** across 13 files. The audit undercounted. Heaviest files: AppCard (8), GroupedAppCard (8), AppsTab (6), ConsoleApp (5). |
 | AddAppForm/EditAppForm "~85% identical" | Design §1.6 | **~75-80% identical**. The multi-service toggle (AddAppForm) vs pre-loaded state (EditAppForm) and ID generation logic create ~20-25% genuine divergence. Still a clear DRY violation. |
-| `getAppStatus` "in useApps.ts" | Arch §3.1 | **Correct** — exists at `useApps.ts:185` as a `useCallback`. The arch audit was right here; the function exists in all 3 stated locations. |
+| `getAppStatus` "in useApps.ts" | Arch §3.1 | **Correct** -exists at `useApps.ts:185` as a `useCallback`. The arch audit was right here; the function exists in all 3 stated locations. |
 | Font size "9 distinct sizes" is a problem | Design §1.1 | **Accurate count, overstated severity.** The tray window intentionally uses micro-typography (8-13px) for density in a 420px popup. The console window sizes (12-14px, 2xl) are appropriate for their context. This is a density-optimized design, not an accident. |
 
 ---
@@ -249,8 +249,8 @@ startApp(comp.id, comp.path, comp.command, comp.port, comp.type)
 ### Bug 3: Static port display/action in AppsTab
 
 **Location:** `src/console/AppsTab.tsx:150-154`
-**Impact:** Same as Bug 2 — "Open in Browser" navigates to the configured port, not the actual runtime port.
-**Fix:** Same pattern — use runtime port from `statuses[app.id]?.port` with fallback to `app.port`.
+**Impact:** Same as Bug 2 -"Open in Browser" navigates to the configured port, not the actual runtime port.
+**Fix:** Same pattern -use runtime port from `statuses[app.id]?.port` with fallback to `app.port`.
 **Effort:** 5 minutes
 
 ### Bug 4: Two IPC handlers lack error wrapping
@@ -276,7 +276,7 @@ These address the root causes of ongoing development friction. Do these in your 
 |---|------|------|-----|--------|
 | 1.1 | **Extract shared utilities** | Create `src/utils/status.ts` (`getAppStatus`, status card classes), `src/utils/format.ts` (`formatUptime`, `getLineClass`). Delete the 7 duplicate copies. | Every new view will copy-paste these again. Stops the bleeding. | 30 min |
 | 1.2 | **Extract `useClickOutside` hook** | Create `src/hooks/useClickOutside.ts`. Replace 3 identical `mousedown` listener patterns (AppCard, GroupedAppCard, AppsTab). | This exact pattern is already in 3 files and will appear in every new menu/popover. | 20 min |
-| 1.3 | **Split `main.ts` into modules** | Extract to: `ipc-handlers.ts` (~300 lines, all `ipcMain.handle` calls), `config-store.ts` (~100 lines, `readApps`/`writeApps`/`validateAppEntry`/cache), leaving `main.ts` as lifecycle+tray (~150 lines). | 751 lines with 25 handlers is the #1 barrier to finding anything. The split is mechanical — no logic changes. | 1.5 hrs |
+| 1.3 | **Split `main.ts` into modules** | Extract to: `ipc-handlers.ts` (~300 lines, all `ipcMain.handle` calls), `config-store.ts` (~100 lines, `readApps`/`writeApps`/`validateAppEntry`/cache), leaving `main.ts` as lifecycle+tray (~150 lines). | 751 lines with 25 handlers is the #1 barrier to finding anything. The split is mechanical -no logic changes. | 1.5 hrs |
 | 1.4 | **Shared types file** | Create `shared/types.ts` with `AppEntry`, `AppComponent`, `AppStatus`, `StatusInfo`, `IpcResult`. Import in both `tsconfig.app.json` and `tsconfig.node.json`. Delete duplicate interfaces from `main.ts:114-133`. | Eliminates silent type drift between main and renderer. The main process currently uses `type: string` where renderer uses `type: AppType`. | 30 min |
 | 1.5 | **Merge AddAppForm + EditAppForm** | Create single `AppForm.tsx` with `mode: 'add' | 'edit'` prop. Extract shared `Field` component to `src/components/Field.tsx`. | ~250 lines of near-identical code. Every form change currently requires editing two files. | 1.5 hrs |
 
@@ -321,7 +321,7 @@ Do these when you want to work on the product rather than the code. No urgency.
 | 4.2 | Keyboard shortcuts | `Cmd+K` for search, `Escape` for back, arrow navigation, `Enter` to start/stop. Global shortcut already exists (`Cmd+Shift+L`). | 1.5 hrs |
 | 4.3 | `system` theme option | Three-way toggle: Dark / Light / System (follow `prefers-color-scheme`). | 30 min |
 | 4.4 | Drag-to-reorder | Wire `app:reorder` IPC (already exists) to drag handles on cards. Use `@dnd-kit/core`. | 2 hrs |
-| 4.5 | Undo for destructive actions | Replace immediate delete + toast with "Removed — Undo" toast that delays actual deletion by 5s. | 1 hr |
+| 4.5 | Undo for destructive actions | Replace immediate delete + toast with "Removed -Undo" toast that delays actual deletion by 5s. | 1 hr |
 | 4.6 | First-run experience | Auto-detect projects in `~/Developer`, `~/Projects`. Suggest configs from `package.json`, `pyproject.toml`. | 3 hrs |
 | 4.7 | Console route-based navigation | Replace conditional tab rendering with hash-based routing for deep-linking and back-button support. | 1.5 hrs |
 | 4.8 | Type dropdown grouping | Group the 19 app types into categories (Frontend/Backend/DevOps) or add auto-detection from `package.json`/`pyproject.toml`. | 1 hr |
@@ -351,28 +351,28 @@ These were suggested by one or both audits but aren't worth the effort at curren
 | Tier | Focus | Total Effort | Recommendation |
 |------|-------|-------------|----------------|
 | **Tier 0** | **Open-source readiness (LICENSE, README, .gitignore, CI, personal data)** | **~5-7 hrs** | **Must-do before first public commit** |
-| Bugs | Fix 4 real bugs | 15 min | Do now — before you forget the context |
+| Bugs | Fix 4 real bugs | 15 min | Do now -before you forget the context |
 | Tier 1 | Structural fixes (DRY, split main.ts, shared types) | ~4 hrs | Do before or alongside public release |
-| Tier 2 | Component library foundations + promoted items (Icon, OverflowMenu, first-run, a11y) | ~6 hrs | Do shortly after release — first-run experience is critical for new users |
+| Tier 2 | Component library foundations + promoted items (Icon, OverflowMenu, first-run, a11y) | ~6 hrs | Do shortly after release -first-run experience is critical for new users |
 | Tier 3 | Interaction polish (validation, naming, CSS consolidation) | ~2 hrs | Do when motivated |
 | Tier 4 | Future enhancements (animations, shortcuts, DnD, auto-update) | ~12.5 hrs | Pick and choose |
 
 ### Recommended Sequence for Public Launch
 
-**Session 1 — Ship-blockers (~3 hours):**
+**Session 1 -Ship-blockers (~3 hours):**
 Bugs (15 min) + Tier 0 items 0.1-0.3, 0.5-0.6 (LICENSE, README, .gitignore, package.json, strip personal data)
 
-**Session 2 — CI + Distribution (~3 hours):**
+**Session 2 -CI + Distribution (~3 hours):**
 Tier 0 items 0.4, 0.7, 0.8 (GitHub Actions, Homebrew tap, code signing)
 
-**Session 3 — Code quality before public eyes (~3 hours):**
+**Session 3 -Code quality before public eyes (~3 hours):**
 Items 1.1, 1.2, 1.4, 2.5 (shared utils, useClickOutside, shared types, ESLint)
 
-**Session 4 — Structural cleanup (~3 hours):**
+**Session 4 -Structural cleanup (~3 hours):**
 Items 1.3, 1.5 (split main.ts, merge forms)
 
-**Session 5 — Public-user experience (~3 hours):**
-Items 4.6 (first-run experience — promoted from Tier 4), 3.6 (quit button), 3.4 (dialog a11y)
+**Session 5 -Public-user experience (~3 hours):**
+Items 4.6 (first-run experience -promoted from Tier 4), 3.6 (quit button), 3.4 (dialog a11y)
 
 After these five sessions (~15 hours total), the project will be:
 - Publicly installable via `brew install --cask yourname/tap/launchpad`

@@ -1,4 +1,4 @@
-# Launchpad — UX & Design Systems Audit
+# Launchpad -UX & Design Systems Audit
 
 > Audit performed on the full codebase: every component, hook, stylesheet, and view.
 
@@ -22,7 +22,7 @@ The codebase uses **9 distinct font sizes**, most via Tailwind arbitrary values,
 | `text-sm` (14px) | Console table text, settings labels, section headers |
 | `text-2xl` | Dashboard stat cards only |
 
-This is not a type scale — it's a scatterplot. There are **five sizes between 8px and 12px**, each used for overlapping semantic purposes. The same conceptual element (a form label) appears at `text-[9px]` inside grouped form components and `text-[10px]` in the `Field` component. The same conceptual element (body text) is `text-[11px]` in the tray and `text-sm` in the console.
+This is not a type scale -it's a scatterplot. There are **five sizes between 8px and 12px**, each used for overlapping semantic purposes. The same conceptual element (a form label) appears at `text-[9px]` inside grouped form components and `text-[10px]` in the `Field` component. The same conceptual element (body text) is `text-[11px]` in the tray and `text-sm` in the console.
 
 **Verdict**: The micro-typography (8–10px) optimizes for density in the tray, which is the right instinct for a 420px-wide menu bar popup. But the sizes are not rationalized, and the console window inherits tray-scale sizing rather than establishing its own appropriate scale.
 
@@ -31,9 +31,9 @@ This is not a type scale — it's a scatterplot. There are **five sizes between 
 Spacing uses Tailwind's default 4px grid, but rhythm varies across similar components:
 
 - Card padding: `px-3 py-2` everywhere (consistent)
-- Section spacing: `space-y-1.5` (app list), `space-y-2` (grouped components), `space-y-3` (forms), `space-y-6` (dashboard), `space-y-8` (settings) — five different vertical rhythms
+- Section spacing: `space-y-1.5` (app list), `space-y-2` (grouped components), `space-y-3` (forms), `space-y-6` (dashboard), `space-y-8` (settings) -five different vertical rhythms
 - Gap values: `gap-1`, `gap-1.5`, `gap-2`, `gap-2.5`, `gap-3` all appear in similar contexts (button groups, flex rows)
-- Content padding: `px-3 py-2` (tray), `px-6 py-3` (console), `p-6` (dashboard) — reasonable bifurcation between tray and console
+- Content padding: `px-3 py-2` (tray), `px-6 py-3` (console), `p-6` (dashboard) -reasonable bifurcation between tray and console
 
 The spacing **within** each surface is consistent enough, but there's no documented spacing scale that governs when to use `gap-1.5` vs `gap-2`.
 
@@ -41,13 +41,13 @@ The spacing **within** each surface is consistent enough, but there's no documen
 
 Two color systems coexist:
 
-**System 1**: Tailwind utility classes in components — `neutral-100` through `neutral-950`, semantic colors from Tailwind's palette (`emerald-400`, `sky-400`, `red-400/500`, `amber-400`).
+**System 1**: Tailwind utility classes in components -`neutral-100` through `neutral-950`, semantic colors from Tailwind's palette (`emerald-400`, `sky-400`, `red-400/500`, `amber-400`).
 
-**System 2**: Hardcoded hex values in `src/index.css` — `#404040` (neutral-700), `#525252` (neutral-600), `#c4c4c4` (≈ neutral-300 but not exact), `#171717` (neutral-900), `#e5e5e5` (neutral-200), `#0ea5e9` (sky-500), `#34d399` (emerald-400), `#f87171` (red-400).
+**System 2**: Hardcoded hex values in `src/index.css` -`#404040` (neutral-700), `#525252` (neutral-600), `#c4c4c4` (≈ neutral-300 but not exact), `#171717` (neutral-900), `#e5e5e5` (neutral-200), `#0ea5e9` (sky-500), `#34d399` (emerald-400), `#f87171` (red-400).
 
 The `.btn-action-start`, `.btn-action-stop`, `.btn-secondary`, and `.input-field` classes all use raw hex. These map to Tailwind values but aren't using them, creating a maintenance gap. If someone changes the color palette, they'd need to update both systems.
 
-**The `typeRegistry.ts` is a bright spot** — it's a proper centralized token map for app-type colors. However, the **status colors** are defined three different ways:
+**The `typeRegistry.ts` is a bright spot** -it's a proper centralized token map for app-type colors. However, the **status colors** are defined three different ways:
 
 1. `StatusBadge.tsx`: `bg-emerald-400`, `bg-amber-400`, `bg-red-500`, `bg-neutral-500`
 2. `AppCard.tsx` border colors: `border-emerald-500/20 bg-emerald-500/5`, `border-red-500/30 bg-red-500/5`
@@ -110,7 +110,7 @@ The tray navigation is simple and appropriate for a dropdown. But there's **no b
 ### 2.2 State Feedback
 
 **Good:**
-- `StatusBadge` with `animate-ping` for "starting" state — clear, visible pulse
+- `StatusBadge` with `animate-ping` for "starting" state -clear, visible pulse
 - Error messages shown inline on cards
 - Toast notifications for action confirmation
 - `pendingOps` tracking disables buttons during async operations
@@ -128,7 +128,7 @@ The tray navigation is simple and appropriate for a dropdown. But there's **no b
 Issues in `AddAppForm` / `EditAppForm`:
 
 1. No inline validation. The submit button is disabled when invalid, but the user gets **no feedback about what's missing**.
-2. Port field accepts any number — no range validation (1–65535).
+2. Port field accepts any number -no range validation (1–65535).
 3. Tags are a comma-separated text input. Modern UX demands a token/chip input.
 4. The "Multi-service app" checkbox fundamentally changes the form layout, but there's no visual transition or explanation of what changes.
 5. No field-level error states (no red borders, no helper text).
@@ -136,9 +136,9 @@ Issues in `AddAppForm` / `EditAppForm`:
 
 ### 2.4 Empty and Error States
 
-Empty states are **well-handled** in the tray — correctly distinguishes between "no apps at all" and "no matching apps" with icon + instructional text.
+Empty states are **well-handled** in the tray -correctly distinguishes between "no apps at all" and "no matching apps" with icon + instructional text.
 
-The console views, however, have minimal empty states — just plain text like "No apps found."
+The console views, however, have minimal empty states -just plain text like "No apps found."
 
 The error boundary exists and is functional but spartan. The "Try Again" action just clears the error state, which may not resolve the underlying issue.
 
@@ -146,9 +146,9 @@ The error boundary exists and is functional but spartan. The "Try Again" action 
 
 1. **No keyboard shortcuts** for common actions (start/stop, navigate between apps) despite `reorderApps` IPC existing.
 2. **No drag-to-reorder** even though the IPC handler for reordering exists.
-3. **No right-click context menu** — would be natural for a desktop app.
+3. **No right-click context menu** -would be natural for a desktop app.
 4. **No confirmation on import** (overwrites config silently).
-5. **The quit button** in the title bar uses a 12px power icon in neutral-400 — dangerously low visual weight for an action that kills all running processes.
+5. **The quit button** in the title bar uses a 12px power icon in neutral-400 -dangerously low visual weight for an action that kills all running processes.
 
 ---
 
@@ -177,7 +177,7 @@ In the tray, the action hierarchy is appropriate:
 2. **Open in browser** (24px icon, shown when running)
 3. **Overflow menu** (24px icon, contains secondary actions)
 
-The "Add App" CTA in the footer is well-positioned but uses a dashed border + muted text — deliberately low-emphasis, which is correct for a secondary action but weak for the activation moment.
+The "Add App" CTA in the footer is well-positioned but uses a dashed border + muted text -deliberately low-emphasis, which is correct for a secondary action but weak for the activation moment.
 
 In the console, CTAs are less organized. The dashboard "Start All" / "Stop All" buttons and per-app Start/Stop buttons compete visually.
 
@@ -216,7 +216,7 @@ The type selector dropdown with 19 options is approaching the limit. Consider gr
 
 1. **Information density is excellent for the tray form factor**. The 420px popup packs a lot of utility into a small space without feeling cramped. The choice to use 9–13px text in the tray is the right call for a power-user tool.
 
-2. **Status communication is immediate and clear**. Color-coded dots + card borders + port display + uptime — you know the state of every app at a glance. The `animate-ping` on "starting" is a particularly nice touch.
+2. **Status communication is immediate and clear**. Color-coded dots + card borders + port display + uptime -you know the state of every app at a glance. The `animate-ping` on "starting" is a particularly nice touch.
 
 3. **`typeRegistry.ts` is the right pattern**. Centralizing app-type metadata in a lookup table is exactly what a design system needs. This should be expanded to cover all token categories.
 
@@ -242,7 +242,7 @@ The type selector dropdown with 19 options is approaching the limit. Consider gr
 | 9 font sizes with no governing scale | High | All components |
 | Dual color system (hex in CSS + Tailwind in TSX) | High | `index.css` vs components |
 | Status colors defined 3 different ways | Medium | `StatusBadge`, `AppCard`, `Toast` |
-| No icon library — ~40 inline SVGs | High | All components |
+| No icon library -~40 inline SVGs | High | All components |
 | Scrollbar colors hardcoded outside palette | Low | `index.css` |
 | No "system" theme option | Low | `useTheme.ts` |
 
@@ -277,7 +277,7 @@ The type selector dropdown with 19 options is approaching the limit. Consider gr
 
 ## 7. Improvement Roadmap
 
-### Phase 1: Foundation (Design Debt Remediation) — Week 1–2
+### Phase 1: Foundation (Design Debt Remediation) -Week 1–2
 
 **Goal**: Establish the design token layer and eliminate the worst duplication.
 
@@ -337,10 +337,10 @@ Merge into a single `AppForm` component with an `initialValues` prop and `mode: 
 
 #### 1c. Extract shared primitives
 
-- `src/components/OverflowMenu.tsx` — reusable popover menu with `useClickOutside` hook
-- `src/components/Icon.tsx` — `<Icon name="restart" />` wrapping all SVG paths in a static map
-- `src/components/Field.tsx` — promote the locally-defined `Field` to a shared component
-- `src/utils.ts` — move `getAppStatus`, `formatUptime`, `getLineClass` here
+- `src/components/OverflowMenu.tsx` -reusable popover menu with `useClickOutside` hook
+- `src/components/Icon.tsx` -`<Icon name="restart" />` wrapping all SVG paths in a static map
+- `src/components/Field.tsx` -promote the locally-defined `Field` to a shared component
+- `src/utils.ts` -move `getAppStatus`, `formatUptime`, `getLineClass` here
 
 #### 1d. Consolidate CSS hex values
 
@@ -348,7 +348,7 @@ Replace all raw hex in `src/index.css` with Tailwind v4 CSS custom properties ti
 
 ---
 
-### Phase 2: Interaction Quality — Week 3–4
+### Phase 2: Interaction Quality -Week 3–4
 
 **Goal**: Raise the interaction polish to native-app standards.
 
@@ -376,7 +376,7 @@ Either move to a menu, give it a text label, or increase its visual weight with 
 
 ---
 
-### Phase 3: Shared Data Layer — Week 5–6
+### Phase 3: Shared Data Layer -Week 5–6
 
 **Goal**: Eliminate console-wide data duplication and prepare for new tabs.
 
@@ -390,7 +390,7 @@ Even hash-based routing will improve deep-linking, back-button support, and code
 
 ---
 
-### Phase 4: Polish & Delight — Week 7–8
+### Phase 4: Polish & Delight -Week 7–8
 
 **Goal**: Close the gap between "functional tool" and "product people recommend."
 
@@ -414,21 +414,21 @@ The `reorderApps` IPC already exists. Wire up a drag handle on cards using a lib
 
 #### 4e. Add undo for destructive actions
 
-Replace the immediate delete + toast with a "Removed — Undo" toast that delays actual deletion by 5 seconds.
+Replace the immediate delete + toast with a "Removed -Undo" toast that delays actual deletion by 5 seconds.
 
 ---
 
 ## 8. Future Vision
 
-With disciplined UX execution, Launchpad has the potential to become **the iTerm of local development orchestration** — the one tool every developer keeps in their menu bar, not because they have to, but because it makes their workflow feel effortless.
+With disciplined UX execution, Launchpad has the potential to become **the iTerm of local development orchestration** -the one tool every developer keeps in their menu bar, not because they have to, but because it makes their workflow feel effortless.
 
 The product direction is right: a dense, fast, always-available menu bar tool for the 80% case (start/stop/check status), with a full console window for the 20% case (monitoring, configuration, debugging). This is the same pattern that made tools like Docker Desktop, TablePlus, and Raycast successful.
 
-What's holding it back is **visual system maturity**, not product vision. The current codebase has the right instincts — `StatusBadge` as a primitive, `typeRegistry` as a token store, the tray/console split — but these patterns are islands in a sea of ad hoc implementation. The next evolution is connecting those islands into a coherent system:
+What's holding it back is **visual system maturity**, not product vision. The current codebase has the right instincts -`StatusBadge` as a primitive, `typeRegistry` as a token store, the tray/console split -but these patterns are islands in a sea of ad hoc implementation. The next evolution is connecting those islands into a coherent system:
 
 - A token layer that makes consistency the path of least resistance
 - A component library where building a new view means composing existing primitives, not writing new CSS
 - A shared data layer where adding a console tab is 50 lines, not 200
 - Animations and micro-interactions that make the app feel native-quality, matching the polish of macOS system utilities
 
-The density and utility are already there. The foundations of taste are visible. What's needed now is the **engineering discipline to turn instincts into infrastructure** — so that the 20th screen you build is as consistent as the 2nd.
+The density and utility are already there. The foundations of taste are visible. What's needed now is the **engineering discipline to turn instincts into infrastructure** -so that the 20th screen you build is as consistent as the 2nd.

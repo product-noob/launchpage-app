@@ -13,7 +13,7 @@ process.env.VITE_PUBLIC = process.env.VITE_DEV_SERVER_URL
   ? path.join(process.env.DIST_ELECTRON, '../public')
   : process.env.DIST
 
-// Single-instance lock — prevent multiple copies from running
+// Single-instance lock -prevent multiple copies from running
 const gotLock = app.requestSingleInstanceLock()
 if (!gotLock) {
   app.quit()

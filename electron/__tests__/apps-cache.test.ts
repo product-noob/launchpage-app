@@ -56,7 +56,7 @@ describe('apps cache', () => {
     expect(store.getDiskReadCount()).toBe(1)
   })
 
-  it('caches after first read — no extra disk reads', () => {
+  it('caches after first read -no extra disk reads', () => {
     const store = createAppsStore()
     store.setDiskContent(JSON.stringify({
       apps: [{ id: 'a', name: 'A', type: 'vite', path: '/a', command: 'cmd' }],
@@ -88,7 +88,7 @@ describe('apps cache', () => {
     expect(store.getDiskReadCount()).toBe(0)
   })
 
-  it('readApps returns a shallow copy — mutation does not corrupt cache', () => {
+  it('readApps returns a shallow copy -mutation does not corrupt cache', () => {
     const store = createAppsStore()
     store.writeApps({
       apps: [{ id: 'a', name: 'A', type: 'vite', path: '/a', command: 'cmd' }],

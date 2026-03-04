@@ -1,18 +1,11 @@
 import { Moon, Sun, Github, Rocket, Download } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
 import { motion } from 'motion/react';
-
-const DOWNLOAD_MAC = 'https://github.com/product-noob/launchpage-app/releases/download/v1.0.0/Launchpad-1.0.0-arm64.dmg';
-const DOWNLOAD_WIN = 'https://github.com/product-noob/launchpage-app/releases/download/v1.0.0/Launchpad.Setup.1.0.0.exe';
-const GITHUB_URL = 'https://github.com/product-noob/launchpage-app';
-
-function getDownloadUrl() {
-  return navigator.userAgent.includes('Win') ? DOWNLOAD_WIN : DOWNLOAD_MAC;
-}
+import { GITHUB_URL, getOSInfo } from '../constants';
 
 export function Header() {
   const { theme, setTheme } = useTheme();
-  const downloadUrl = getDownloadUrl();
+  const { url: downloadUrl } = getOSInfo();
 
   return (
     <motion.header

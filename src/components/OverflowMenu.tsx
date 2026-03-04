@@ -15,7 +15,7 @@ export interface MenuAction {
 
 interface OverflowMenuProps {
   items: MenuAction[]
-  /** Width class for the dropdown — defaults to 'w-40' */
+  /** Width class for the dropdown -defaults to 'w-40' */
   width?: string
 }
 

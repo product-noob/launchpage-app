@@ -1,20 +1,11 @@
 import { motion } from 'motion/react';
 import { Download, Star } from 'lucide-react';
-
-const DOWNLOAD_MAC = 'https://github.com/product-noob/launchpage-app/releases/download/v1.0.0/Launchpad-1.0.0-arm64.dmg';
-const DOWNLOAD_WIN = 'https://github.com/product-noob/launchpage-app/releases/download/v1.0.0/Launchpad.Setup.1.0.0.exe';
-const GITHUB_URL = 'https://github.com/product-noob/launchpage-app';
-
-function getDownloadInfo() {
-  return navigator.userAgent.includes('Win')
-    ? { label: 'Download for Windows', url: DOWNLOAD_WIN }
-    : { label: 'Download for macOS', url: DOWNLOAD_MAC };
-}
+import { GITHUB_URL, getOSInfo } from '../constants';
 
 export function CTASection() {
-  const dl = getDownloadInfo();
+  const dl = getOSInfo();
   return (
-    <section className="w-full py-32 px-6 relative overflow-hidden bg-gray-950 dark:bg-black">
+    <section id="install" className="w-full py-32 px-6 relative overflow-hidden bg-gray-950 dark:bg-black scroll-mt-20">
       {/* Indigo glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-indigo-600/20 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[300px] bg-violet-600/15 blur-[100px] rounded-full pointer-events-none" />
@@ -27,7 +18,7 @@ export function CTASection() {
           transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
           className="text-5xl md:text-7xl font-bold tracking-tighter text-white leading-[1.05] mb-6"
         >
-          Stop juggling<br />terminal tabs.
+          Your apps are waiting.
         </motion.h2>
 
         <motion.p
@@ -37,7 +28,7 @@ export function CTASection() {
           transition={{ duration: 0.7, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
           className="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto"
         >
-          Launchpad gives every dev server a home — summon them all in one keystroke.
+          Launchpad keeps every project ready to launch -summon them all in one click.
         </motion.p>
 
         <motion.div

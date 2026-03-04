@@ -1,4 +1,4 @@
-# Launchpad — Architecture & Engineering Audit
+# Launchpad -Architecture & Engineering Audit
 
 > **Context:** Side project, not a product scaling to millions. Recommendations are calibrated for a solo developer who dips in occasionally. Some loss of modularity and low-level vulnerability is acceptable.
 
@@ -46,7 +46,7 @@ Only 2 runtime deps (react, react-dom). Everything else is devDependencies. No b
 
 **Problem:** Mixes window creation, tray management, IPC handlers (30+), `apps.json` I/O, type definitions, and app lifecycle into one file. Coming back after a month means spending 20 minutes just finding the handler you need.
 
-**Fix — split into 3-4 files:**
+**Fix -split into 3-4 files:**
 
 ```
 electron/
@@ -78,7 +78,7 @@ Update both `tsconfig.app.json` and `tsconfig.node.json` `include` arrays to add
 |-----|----------|--------|
 | Uses `app.port` (static config) instead of `statuses[app.id]?.port` (runtime-resolved) | `DashboardTab.tsx` line 125, `AppsTab.tsx` line 154 | "Open" button goes to wrong URL if `findFreePort` picked a different port |
 | `app:startComponent` doesn't pass `comp.type` to `startApp()` | `main.ts` line 481 | Port-flag injection (which keys off type) won't work for grouped app components |
-| `useEffect` reads `selectedAppId` but doesn't include it in deps | `LogsTab.tsx` lines 13–24 | Stale closure — auto-select doesn't update when selection changes |
+| `useEffect` reads `selectedAppId` but doesn't include it in deps | `LogsTab.tsx` lines 13–24 | Stale closure -auto-select doesn't update when selection changes |
 
 ### 2.4 Two IPC handlers lack error handling
 
@@ -183,7 +183,7 @@ const PORT_PROBE_INTERVAL_MS = 2000
 
 ### 6.1 1-second status polling causes full-tree re-renders
 
-`statuses` updates every second via `onStatusUpdate`. Since `useApps()` returns a new `statuses` object each time, every component consuming the hook re-renders — even if no status actually changed. For 6 apps this is fine. For 20+ it'll get sluggish.
+`statuses` updates every second via `onStatusUpdate`. Since `useApps()` returns a new `statuses` object each time, every component consuming the hook re-renders -even if no status actually changed. For 6 apps this is fine. For 20+ it'll get sluggish.
 
 **Pragmatic fix:** Shallow-compare the incoming statuses object and only update state if something actually changed:
 ```typescript
@@ -201,7 +201,7 @@ In `process-manager.ts` (lines 349–355), the port-check interval runs every 2s
 
 ### 6.3 ManagedProcess entries never removed from Map
 
-`processes` Map entries persist after stop — no explicit removal. Could grow over many add/remove cycles, though practically irrelevant for <50 apps.
+`processes` Map entries persist after stop -no explicit removal. Could grow over many add/remove cycles, though practically irrelevant for <50 apps.
 
 ---
 
@@ -213,11 +213,11 @@ In `process-manager.ts` (lines 349–355), the port-check interval runs every 2s
 - **Fix:** Extract `statusCardClasses()` and consider a `tokens.ts` for shared color strings.
 
 ### Theme management
-- `useTheme()` hook manages dark/light via `localStorage` + class toggling. Works well. Both tray and console windows use it independently — acceptable since they share `localStorage`.
+- `useTheme()` hook manages dark/light via `localStorage` + class toggling. Works well. Both tray and console windows use it independently -acceptable since they share `localStorage`.
 
 ### CSS duplication
-- `index.css` defines shared `.btn-*` and `.input-field` classes — good.
-- Status-related classes (border, background tints) are not centralized — see section 3.3.
+- `index.css` defines shared `.btn-*` and `.input-field` classes -good.
+- Status-related classes (border, background tints) are not centralized -see section 3.3.
 
 ### Tailwind discipline
 - v4 via Vite plugin, no config file needed. CSS-first configuration is appropriate.
@@ -262,7 +262,7 @@ These are the practices that actually matter at side-project scale:
 
 1. **One file, one responsibility.** If you can't describe what a file does in one sentence, split it. The `main.ts` monolith is the example.
 
-2. **Don't copy-paste — extract.** Every time you catch yourself copying a function or a Tailwind class string to a second file, stop and extract it into a shared utility. Side projects rot fastest from copy-paste drift.
+2. **Don't copy-paste -extract.** Every time you catch yourself copying a function or a Tailwind class string to a second file, stop and extract it into a shared utility. Side projects rot fastest from copy-paste drift.
 
 3. **Fix bugs immediately.** The three bugs above are the kind that will cost you 2 hours of debugging if you hit them 3 months from now and don't remember the codebase. Fix them while context is fresh.
 
@@ -270,7 +270,7 @@ These are the practices that actually matter at side-project scale:
 
 5. **Name your magic numbers.** When you come back after weeks, `SIGKILL_TIMEOUT_MS` is instantly comprehensible; `5000` is not.
 
-6. **Don't over-abstract.** Your current component structure (AppCard, GroupedAppCard, LogViewer, etc.) is the right level of granularity. Resist the urge to create a generic `<Card variant="app" />` component system — that's enterprise complexity you don't need.
+6. **Don't over-abstract.** Your current component structure (AppCard, GroupedAppCard, LogViewer, etc.) is the right level of granularity. Resist the urge to create a generic `<Card variant="app" />` component system -that's enterprise complexity you don't need.
 
 7. **Tests should import source, not rewrite it.** After the `main.ts` split, have tests import from the actual modules.
 
@@ -345,7 +345,7 @@ src/
     SettingsTab.tsx
 ```
 
-No state management library, no router, no monorepo, no dependency injection. Just cleaner file boundaries and shared utilities. The architecture is fundamentally sound — it just needs housekeeping.
+No state management library, no router, no monorepo, no dependency injection. Just cleaner file boundaries and shared utilities. The architecture is fundamentally sound -it just needs housekeeping.
 
 ---
 

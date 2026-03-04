@@ -37,7 +37,7 @@ export function useConsoleData(): ConsoleData {
   return ctx
 }
 
-/** Shared data hook used by the ConsoleDataProvider — fetches apps list,
+/** Shared data hook used by the ConsoleDataProvider -fetches apps list,
  *  subscribes to status updates, and re-fetches on config changes. */
 export function useConsoleDataValue(): ConsoleData {
   const [apps, setApps] = useState<AppEntry[]>([])
