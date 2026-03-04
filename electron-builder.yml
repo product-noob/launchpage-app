@@ -1,21 +1,33 @@
 appId: com.launchpad.app
 productName: Launchpad
+copyright: Copyright © 2025 Prince Jain
+
 directories:
   buildResources: resources
   output: release
+
 files:
   - dist
   - dist-electron
   - apps.json
+
 extraResources:
   - from: apps.json
     to: apps.json
+  - from: resources/trayIconTemplate.png
+    to: trayIconTemplate.png
+  - from: resources/trayIconTemplate@2x.png
+    to: trayIconTemplate@2x.png
+
 mac:
   target:
     - target: dmg
       arch:
-        - universal
+        - x64
   category: public.app-category.developer-tools
+  icon: resources/icon.icns
+  identity: null
+
 dmg:
   contents:
     - x: 130
@@ -24,14 +36,21 @@ dmg:
       y: 220
       type: link
       path: /Applications
+
 win:
   target:
     - target: nsis
       arch:
         - x64
   icon: resources/icon.png
+
 nsis:
   oneClick: false
   allowToChangeInstallationDirectory: true
   createDesktopShortcut: false
   createStartMenuShortcut: true
+
+publish:
+  - provider: github
+    owner: product-noob
+    repo: launchpage-app
