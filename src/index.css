@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+  margin: 0;
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  background: transparent;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-700);
+  border-radius: 2px;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-600);
+}
+.light ::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-300);
+  border-radius: 2px;
+}
+.light ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-400);
+}
+
+/* Shared button styles */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  transition: all 150ms;
+  flex-shrink: 0;
+}
+
+.btn-action-start {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--color-emerald-500) 15%, transparent);
+  color: var(--color-emerald-400);
+  transition: all 150ms;
+  flex-shrink: 0;
+}
+.btn-action-start:hover {
+  background: color-mix(in srgb, var(--color-emerald-500) 25%, transparent);
+}
+
+.btn-action-stop {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--color-red-500) 15%, transparent);
+  color: var(--color-red-400);
+  transition: all 150ms;
+  flex-shrink: 0;
+}
+.btn-action-stop:hover {
+  background: color-mix(in srgb, var(--color-red-500) 25%, transparent);
+}
+.btn-action-stop:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 150ms;
+}
+.dark .btn-secondary {
+  border: 1px solid var(--color-neutral-700);
+  color: var(--color-neutral-400);
+}
+.dark .btn-secondary:hover {
+  border-color: var(--color-neutral-600);
+  color: var(--color-neutral-300);
+}
+.light .btn-secondary {
+  border: 1px solid var(--color-neutral-300);
+  color: var(--color-neutral-600);
+}
+.light .btn-secondary:hover {
+  border-color: var(--color-neutral-400);
+  color: var(--color-neutral-800);
+}
+
+.input-field {
+  width: 100%;
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 150ms;
+}
+.dark .input-field {
+  border: 1px solid var(--color-neutral-700);
+  background: var(--color-neutral-900);
+  color: var(--color-neutral-200);
+}
+.dark .input-field:focus {
+  border-color: var(--color-sky-500);
+}
+.dark .input-field::placeholder {
+  color: var(--color-neutral-600);
+}
+.light .input-field {
+  border: 1px solid var(--color-neutral-300);
+  background: white;
+  color: var(--color-neutral-900);
+}
+.light .input-field:focus {
+  border-color: var(--color-sky-500);
+}
+.light .input-field::placeholder {
+  color: var(--color-neutral-400);
+}
+
+/* Toast animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* View transition animations for tray navigation */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.view-slide-in {
+  animation: slideInRight 0.2s ease-out;
+}
+
+.view-slide-back {
+  animation: slideInLeft 0.2s ease-out;
+}

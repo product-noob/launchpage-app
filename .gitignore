@@ -1,0 +1,19 @@
+node_modules
+.claude/
+dist
+dist-electron
+release
+*.log
+.DS_Store
+
+# Runtime artifacts (contain local paths, generated at runtime)
+apps.json.bak
+pids.json
+
+# Environment
+.env
+.env.*
+
+# Build artifacts
+*.dmg
+*.zip

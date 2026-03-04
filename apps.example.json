@@ -1,0 +1,51 @@
+{
+  "apps": [
+    {
+      "id": "my-frontend",
+      "name": "My Frontend",
+      "type": "vite",
+      "path": "/Users/you/projects/my-app/frontend",
+      "command": "npm run dev",
+      "port": 5173
+    },
+    {
+      "id": "my-api",
+      "name": "My API",
+      "type": "fastapi",
+      "path": "/Users/you/projects/my-app/backend",
+      "command": "uvicorn app.main:app --reload",
+      "port": 8000
+    },
+    {
+      "id": "fullstack-app",
+      "name": "Fullstack App",
+      "type": "grouped",
+      "components": [
+        {
+          "id": "fullstack-frontend",
+          "name": "Frontend",
+          "path": "/Users/you/projects/fullstack/frontend",
+          "command": "npm run dev",
+          "type": "vite",
+          "port": 5174
+        },
+        {
+          "id": "fullstack-backend",
+          "name": "Backend",
+          "path": "/Users/you/projects/fullstack/backend",
+          "command": "uvicorn app.main:app --reload",
+          "type": "fastapi",
+          "port": 8001
+        }
+      ]
+    },
+    {
+      "id": "my-dashboard",
+      "name": "My Dashboard",
+      "type": "streamlit",
+      "path": "/Users/you/projects/dashboard",
+      "command": "streamlit run app.py",
+      "port": 8501
+    }
+  ]
+}

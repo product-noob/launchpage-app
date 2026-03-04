@@ -1,0 +1,38 @@
+appId: com.launchpad.app
+productName: Launchpad
+directories:
+  buildResources: resources
+  output: release
+files:
+  - dist
+  - dist-electron
+  - apps.json
+extraResources:
+  - from: apps.json
+    to: apps.json
+mac:
+  target:
+    - target: dmg
+      arch:
+        - universal
+  category: public.app-category.developer-tools
+dmg:
+  contents:
+    - x: 130
+      y: 220
+    - x: 410
+      y: 220
+      type: link
+      path: /Applications
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+        - arm64
+  icon: resources/icon.ico
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: false
+  createStartMenuShortcut: true
