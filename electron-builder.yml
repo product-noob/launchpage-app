@@ -18,6 +18,8 @@ extraResources:
     to: trayIconTemplate.png
   - from: resources/trayIconTemplate@2x.png
     to: trayIconTemplate@2x.png
+  - from: resources/icon.png
+    to: icon.png
 
 mac:
   target:
@@ -25,7 +27,7 @@ mac:
       arch:
         - arm64
   category: public.app-category.developer-tools
-  icon: resources/icon.icns
+  icon: resources/icon.png
   identity: null
 
 dmg:

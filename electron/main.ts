@@ -25,6 +25,20 @@ let tray: Tray | null = null
 let statusInterval: ReturnType<typeof setInterval> | null = null
 let isQuitting = false
 
+// ── App Icon (for window titlebar / taskbar on Windows) ──
+
+function getAppIcon(): Electron.NativeImage | undefined {
+  if (process.platform !== 'win32') return undefined
+  const iconDir = process.env.VITE_DEV_SERVER_URL
+    ? path.join(process.env.DIST_ELECTRON!, '..', 'resources')
+    : path.join(process.resourcesPath)
+  const iconPath = path.join(iconDir, 'icon.png')
+  if (fs.existsSync(iconPath)) {
+    return nativeImage.createFromPath(iconPath)
+  }
+  return undefined
+}
+
 // ── Tray Icon ──
 
 function createTrayIcon(): Electron.NativeImage {
@@ -106,6 +120,7 @@ function createConsoleWindow(showImmediately = true) {
     minWidth: 800,
     minHeight: 500,
     show: false,
+    icon: getAppIcon(),
     titleBarStyle: process.platform === 'darwin' ? 'hiddenInset' : 'hidden',
     backgroundColor: '#171717',
     webPreferences: {
