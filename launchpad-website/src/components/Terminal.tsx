@@ -16,7 +16,7 @@ export function Terminal() {
 
   const command = os === 'macOS' 
     ? 'brew install --cask princejain/tap/launchpad'
-    : 'winget install launchpad';
+    : 'winget install Princejain.Launchpad';
 
   const handleCopy = () => {
     navigator.clipboard.writeText(command);
