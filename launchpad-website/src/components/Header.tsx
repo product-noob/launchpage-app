@@ -1,11 +1,10 @@
-import { Moon, Sun, Github, Rocket, Download } from 'lucide-react';
+import { Moon, Sun, Github, Rocket } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
 import { motion } from 'motion/react';
-import { GITHUB_URL, getOSInfo } from '../constants';
+import { GITHUB_URL } from '../constants';
 
 export function Header() {
   const { theme, setTheme } = useTheme();
-  const { url: downloadUrl } = getOSInfo();
 
   return (
     <motion.header
@@ -27,14 +26,6 @@ export function Header() {
           >
             <Github className="w-4 h-4" />
             <span className="hidden md:inline text-sm font-medium">GitHub</span>
-          </a>
-          <div className="w-px h-4 bg-black/10 dark:bg-white/10" />
-          <a
-            href={downloadUrl}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition-colors"
-          >
-            <Download className="w-3.5 h-3.5" />
-            Download
           </a>
           <div className="w-px h-4 bg-black/10 dark:bg-white/10" />
           <button
