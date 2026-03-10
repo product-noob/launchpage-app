@@ -3,9 +3,18 @@ name: Release
 on:
   push:
     tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag to release (e.g. v1.2.0)'
+        required: true
+        type: string
 
 permissions:
   contents: write
+
+env:
+  RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.version || github.ref_name }}
 
 jobs:
   build-mac:
@@ -31,11 +40,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create ${{ github.ref_name }} \
-            --title "${{ github.ref_name }}" \
-            --notes "Launchpad ${{ github.ref_name }} -macOS and Windows tray app for managing local dev servers." \
+          gh release create ${{ env.RELEASE_TAG }} \
+            --title "${{ env.RELEASE_TAG }}" \
+            --notes "Launchpad ${{ env.RELEASE_TAG }} -macOS and Windows tray app for managing local dev servers." \
             2>/dev/null || true
-          gh release upload ${{ github.ref_name }} release/*.dmg --clobber
+          gh release upload ${{ env.RELEASE_TAG }} release/*.dmg --clobber
 
   build-windows:
     runs-on: windows-latest
@@ -61,11 +70,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create ${{ github.ref_name }} \
-            --title "${{ github.ref_name }}" \
-            --notes "Launchpad ${{ github.ref_name }} -macOS and Windows tray app for managing local dev servers." \
+          gh release create ${{ env.RELEASE_TAG }} \
+            --title "${{ env.RELEASE_TAG }}" \
+            --notes "Launchpad ${{ env.RELEASE_TAG }} -macOS and Windows tray app for managing local dev servers." \
             2>/dev/null || true
-          gh release upload ${{ github.ref_name }} release/*.exe --clobber
+          gh release upload ${{ env.RELEASE_TAG }} release/*.exe --clobber
 
       - uses: actions/upload-artifact@v4
         with:
@@ -81,8 +90,8 @@ jobs:
           WINGET_TOKEN: ${{ secrets.WINGET_TOKEN }}
         shell: pwsh
         run: |
-          $version = "${{ github.ref_name }}" -replace '^v', ''
-          $installerUrl = "https://github.com/product-noob/launchpad-app/releases/download/${{ github.ref_name }}/Launchpad.Setup.$version.exe"
+          $version = "${{ env.RELEASE_TAG }}" -replace '^v', ''
+          $installerUrl = "https://github.com/product-noob/launchpad-app/releases/download/${{ env.RELEASE_TAG }}/Launchpad.Setup.$version.exe"
 
           iwr https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
 
