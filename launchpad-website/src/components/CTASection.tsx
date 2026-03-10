@@ -1,9 +1,11 @@
 import { motion } from 'motion/react';
 import { Download, Star } from 'lucide-react';
 import { GITHUB_URL, getOSInfo } from '../constants';
+import { useLatestRelease } from '../hooks/useLatestRelease';
 
 export function CTASection() {
-  const dl = getOSInfo();
+  const { macUrl, winUrl } = useLatestRelease();
+  const dl = getOSInfo(macUrl, winUrl);
   return (
     <section id="install" className="w-full py-32 px-6 relative overflow-hidden bg-gray-950 dark:bg-black scroll-mt-20">
       {/* Indigo glow */}
