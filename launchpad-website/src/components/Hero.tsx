@@ -39,13 +39,23 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
           className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10"
         >
-          <a
-            href={os.url}
-            className="flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-indigo-500/25 w-full sm:w-auto justify-center"
-          >
-            <Download className="w-4 h-4" />
-            {os.label}
-          </a>
+          <div className="flex flex-col items-center gap-1 w-full sm:w-auto">
+            <a
+              href={os.url}
+              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-indigo-500/25 w-full sm:w-auto justify-center"
+            >
+              <Download className="w-4 h-4" />
+              {os.label}
+            </a>
+            {os.isMac && (
+              <p className="text-xs text-gray-400 dark:text-gray-500">
+                If macOS says it's damaged:{' '}
+                <code className="font-mono bg-black/5 dark:bg-white/10 px-1 py-0.5 rounded">
+                  xattr -cr /Applications/Launchpad.app
+                </code>
+              </p>
+            )}
+          </div>
           <a
             href={GITHUB_URL}
             target="_blank"

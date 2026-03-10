@@ -14,18 +14,28 @@ if [[ "$(uname)" != "Darwin" ]]; then
 fi
 
 echo "Fetching latest Launchpad release..."
-TAG=$(curl -fsSL "https://api.github.com/repos/${REPO}/releases/latest" \
-  | grep '"tag_name"' \
-  | sed 's/.*"tag_name": *"\([^"]*\)".*/\1/')
+RELEASE_JSON=$(curl -fsSL "https://api.github.com/repos/${REPO}/releases/latest")
+
+TAG=$(echo "$RELEASE_JSON" | grep '"tag_name"' | sed 's/.*"tag_name": *"\([^"]*\)".*/\1/')
 
 if [[ -z "$TAG" ]]; then
   echo "Error: could not determine latest release tag." >&2
   exit 1
 fi
 
-VERSION="${TAG#v}"
-DMG_NAME="${APP_NAME}-${VERSION}-universal.dmg"
-DMG_URL="https://github.com/${REPO}/releases/download/${TAG}/${DMG_NAME}"
+# Find the actual .dmg asset URL from the release (avoids hardcoding the filename/arch)
+DMG_URL=$(echo "$RELEASE_JSON" \
+  | grep '"browser_download_url"' \
+  | grep '\.dmg"' \
+  | head -1 \
+  | sed 's/.*"browser_download_url": *"\([^"]*\)".*/\1/')
+
+if [[ -z "$DMG_URL" ]]; then
+  echo "Error: could not find a .dmg asset in release ${TAG}." >&2
+  exit 1
+fi
+
+DMG_NAME=$(basename "$DMG_URL")
 
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
