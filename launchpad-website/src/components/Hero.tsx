@@ -2,9 +2,11 @@ import { Terminal } from './Terminal';
 import { motion } from 'motion/react';
 import { Download, Github } from 'lucide-react';
 import { GITHUB_URL, getOSInfo } from '../constants';
+import { useLatestRelease } from '../hooks/useLatestRelease';
 
 export function Hero() {
-  const os = getOSInfo();
+  const { macUrl, winUrl } = useLatestRelease();
+  const os = getOSInfo(macUrl, winUrl);
 
   return (
     <section className="pt-40 pb-20 px-6 w-full flex flex-col items-center relative">
