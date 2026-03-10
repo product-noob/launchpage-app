@@ -48,12 +48,9 @@ export function Hero() {
               {os.label}
             </a>
             {os.isMac && (
-              <p className="text-xs text-gray-400 dark:text-gray-500">
-                If macOS says it's damaged:{' '}
-                <code className="font-mono bg-black/5 dark:bg-white/10 px-1 py-0.5 rounded">
-                  xattr -cr /Applications/Launchpad.app
-                </code>
-              </p>
+              <code className="text-xs font-mono text-gray-400 dark:text-gray-500">
+                # if damaged: xattr -cr /Applications/Launchpad.app
+              </code>
             )}
           </div>
           <a
