@@ -47,11 +47,6 @@ export function Hero() {
               <Download className="w-4 h-4" />
               {os.label}
             </a>
-            {os.isMac && (
-              <code className="text-xs font-mono text-gray-400 dark:text-gray-500">
-                # if damaged: xattr -cr /Applications/Launchpad.app
-              </code>
-            )}
           </div>
           <a
             href={GITHUB_URL}

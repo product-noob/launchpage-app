@@ -66,7 +66,13 @@ export function Terminal() {
             <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F] border border-black/10" />
           </div>
         </div>
-        <div className="p-6 flex items-center justify-between group relative">
+        <div className="p-6 flex flex-col gap-2 group relative">
+          {os === 'macOS' && (
+            <div className="font-mono text-sm text-gray-400 dark:text-gray-600">
+              # if damaged: xattr -cr /Applications/Launchpad.app
+            </div>
+          )}
+          <div className="flex items-center justify-between">
           <div className="font-mono text-sm text-gray-800 dark:text-gray-300 overflow-x-auto whitespace-nowrap flex items-center h-6 min-w-0">
             <span className="text-indigo-500 dark:text-indigo-400 mr-3">~</span>
             <AnimatePresence mode="wait">
@@ -126,6 +132,7 @@ export function Terminal() {
                 )}
               </AnimatePresence>
             </button>
+          </div>
           </div>
         </div>
       </motion.div>
