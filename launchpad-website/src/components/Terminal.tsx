@@ -68,10 +68,12 @@ export function Terminal() {
         </div>
         <div className="p-6 flex flex-col gap-2 group relative">
           {os === 'macOS' && (
-            <div className="font-mono text-sm text-gray-400 dark:text-gray-600">
-              # if damaged: xattr -cr /Applications/Launchpad.app
-            </div>
-          )}
+                      <div className="font-mono text-sm text-gray-400 dark:text-gray-600 flex items-center h-6 min-w-0">
+                        {/* Invisible tilde and margin to perfectly align with the 'brew' text below */}
+                        <span className="invisible mr-3">~</span>
+                        <span># if damaged: xattr -cr /Applications/Launchpad.app</span>
+                      </div>
+                    )}
           <div className="flex items-center justify-between">
           <div className="font-mono text-sm text-gray-800 dark:text-gray-300 overflow-x-auto whitespace-nowrap flex items-center h-6 min-w-0">
             <span className="text-indigo-500 dark:text-indigo-400 mr-3">~</span>
