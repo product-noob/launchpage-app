@@ -71,3 +71,23 @@ jobs:
         with:
           name: windows-installer
           path: release/*.exe
+
+  winget-submit:
+    needs: build-windows
+    runs-on: windows-latest
+    steps:
+      - name: Submit update to winget
+        env:
+          WINGET_TOKEN: ${{ secrets.WINGET_TOKEN }}
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}" -replace '^v', ''
+          $installerUrl = "https://github.com/product-noob/launchpad-app/releases/download/${{ github.ref_name }}/Launchpad.Setup.$version.exe"
+
+          iwr https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
+
+          .\wingetcreate.exe update PrinceJain.Launchpad `
+            --version $version `
+            --urls $installerUrl `
+            --submit `
+            --token $env:WINGET_TOKEN
