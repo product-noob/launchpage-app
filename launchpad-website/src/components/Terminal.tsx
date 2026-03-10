@@ -71,7 +71,7 @@ export function Terminal() {
                       <div className="font-mono text-sm text-gray-400 dark:text-gray-600 flex items-center h-6 min-w-0">
                         {/* Invisible tilde and margin to perfectly align with the 'brew' text below */}
                         <span className="invisible mr-3">~</span>
-                        <span># if damaged: xattr -cr /Applications/Launchpad.app</span>
+                        <span># If you see damaged error run in terminal: xattr -cr /Applications/Launchpad.app</span>
                       </div>
                     )}
           <div className="flex items-center justify-between">
