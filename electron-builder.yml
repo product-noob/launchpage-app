@@ -51,8 +51,9 @@ nsis:
   allowToChangeInstallationDirectory: true
   createDesktopShortcut: false
   createStartMenuShortcut: true
+  artifactName: "${productName}.Setup.${version}.${ext}"
 
 publish:
   - provider: github
     owner: product-noob
-    repo: launchpage-app
+    repo: launchpad-app
