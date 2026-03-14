@@ -1,10 +1,29 @@
-import { ipcMain, shell, dialog } from 'electron'
+import { ipcMain, shell, dialog, type BrowserWindow } from 'electron'
 import fs from 'node:fs'
 import { getAllStatuses } from './process-manager.ts'
 import { openTerminal, getProcessMetrics } from './platform.ts'
 import { getAppsJsonPath, validateAppEntry, readApps, writeApps } from './config-store.ts'
 import { scanDirectories, getDefaultScanDirectories } from './project-scanner.ts'
 import { ipcResult, ipcError, broadcastConfigChanged } from './ipc-handlers.ts'
+import { getMainWindow, setDialogOpen } from './main.ts'
+
+/** Open a native dialog without the tray window hiding on blur */
+async function showDialogWithoutHiding<T>(
+  fn: (parent: BrowserWindow | undefined) => Promise<T>,
+): Promise<T> {
+  const win = getMainWindow() ?? undefined
+  setDialogOpen(true)
+  try {
+    const result = await fn(win)
+    return result
+  } finally {
+    setDialogOpen(false)
+    if (win && !win.isDestroyed()) {
+      win.show()
+      win.focus()
+    }
+  }
+}
 
 export function setupSystemHandlers() {
   ipcMain.handle('app:open', (_event, port: number) => {
@@ -17,9 +36,14 @@ export function setupSystemHandlers() {
   })
 
   ipcMain.handle('dialog:selectFolder', async () => {
-    const result = await dialog.showOpenDialog({ properties: ['openDirectory'] })
-    if (result.canceled) return null
-    return result.filePaths[0]
+    return showDialogWithoutHiding(async (parent) => {
+      const opts = { properties: ['openDirectory' as const] }
+      const result = parent
+        ? await dialog.showOpenDialog(parent, opts)
+        : await dialog.showOpenDialog(opts)
+      if (result.canceled) return null
+      return result.filePaths[0]
+    })
   })
 
   ipcMain.handle('app:openTerminal', (_event, appId: string) => {
@@ -55,9 +79,14 @@ export function setupSystemHandlers() {
   ipcMain.handle('config:export', async () => {
     try {
       const appsPath = getAppsJsonPath()
-      const result = await dialog.showSaveDialog({
-        defaultPath: 'launchpad-config.json',
-        filters: [{ name: 'JSON', extensions: ['json'] }],
+      const result = await showDialogWithoutHiding(async (parent) => {
+        const opts = {
+          defaultPath: 'launchpad-config.json',
+          filters: [{ name: 'JSON', extensions: ['json'] }],
+        }
+        return parent
+          ? dialog.showSaveDialog(parent, opts)
+          : dialog.showSaveDialog(opts)
       })
       if (result.canceled || !result.filePath) return ipcResult()
       fs.copyFileSync(appsPath, result.filePath)
@@ -69,9 +98,14 @@ export function setupSystemHandlers() {
 
   ipcMain.handle('config:import', async () => {
     try {
-      const result = await dialog.showOpenDialog({
-        filters: [{ name: 'JSON', extensions: ['json'] }],
-        properties: ['openFile'],
+      const result = await showDialogWithoutHiding(async (parent) => {
+        const opts = {
+          filters: [{ name: 'JSON', extensions: ['json'] }],
+          properties: ['openFile' as const],
+        }
+        return parent
+          ? dialog.showOpenDialog(parent, opts)
+          : dialog.showOpenDialog(opts)
       })
       if (result.canceled || !result.filePaths[0]) return ipcResult()
       const content = fs.readFileSync(result.filePaths[0], 'utf-8')
@@ -146,12 +180,17 @@ export function setupSystemHandlers() {
   })
 
   ipcMain.handle('scanner:selectFolder', async () => {
-    const result = await dialog.showOpenDialog({
-      properties: ['openDirectory', 'multiSelections'],
-      title: 'Select folders to scan for projects',
+    return showDialogWithoutHiding(async (parent) => {
+      const opts = {
+        properties: ['openDirectory' as const, 'multiSelections' as const],
+        title: 'Select folders to scan for projects',
+      }
+      const result = parent
+        ? await dialog.showOpenDialog(parent, opts)
+        : await dialog.showOpenDialog(opts)
+      if (result.canceled) return ipcResult([])
+      return ipcResult(result.filePaths)
     })
-    if (result.canceled) return ipcResult([])
-    return ipcResult(result.filePaths)
   })
 
   ipcMain.handle('app:metrics', async (_event, id: string) => {

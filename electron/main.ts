@@ -24,6 +24,16 @@ let consoleWin: BrowserWindow | null = null
 let tray: Tray | null = null
 let statusInterval: ReturnType<typeof setInterval> | null = null
 let isQuitting = false
+let isDialogOpen = false
+
+export function getMainWindow(): BrowserWindow | null {
+  return win
+}
+
+export function setDialogOpen(open: boolean) {
+  isDialogOpen = open
+}
+
 
 // ── App Icon (for window titlebar / taskbar on Windows) ──
 
@@ -100,7 +110,9 @@ function createWindow() {
   }
 
   win.on('blur', () => {
-    win?.hide()
+    if (!isDialogOpen) {
+      win?.hide()
+    }
   })
 }
 
